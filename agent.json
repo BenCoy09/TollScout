@@ -3,7 +3,7 @@
   "name": "TollScout",
   "description": "A Telegram bot that checks any Celo address and pays for its own data, a cent at a time, over HTTP 402 with the buy CLI. It returns an itemised receipt.",
   "services": [
-    { "name": "web", "endpoint": "https://PASTE_SITE.vercel.app" },
+    { "name": "web", "endpoint": "https://github.com/BenCoy09/TollScout" },
     { "name": "telegram", "endpoint": "https://t.me/@TollScoutBot" }
   ],
   "x402Support": false,
