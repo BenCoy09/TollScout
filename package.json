@@ -12,6 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^18.0.9",
-    "telegraf": "^4.16.3"
+    "telegraf": "^4.16.3",
+    "viem": "^2.57.16"
   }
 }
