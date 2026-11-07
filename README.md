@@ -4,7 +4,7 @@ A Telegram bot that checks any Celo address and pays for its own data, one cent 
 
 Built for Celo's Agents on Open Rails hackathon, Track 3: Build with buy. Independent project, not affiliated with or endorsed by Celo.
 
-- Bot: https://t.me/TOLLSCOUT
+- Bot: https://t.me/TollScoutBot
 - Site: https://toll-scout.vercel.app/
 - Demo video: [ADD VIDEO LINK]
 
