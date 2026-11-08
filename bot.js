@@ -59,7 +59,7 @@ async function check(ctx, addr) {
   if (aiText) text += 'AI read: ' + aiText + '\n\n';
   text += 'Receipt\n1. Celo RPC batch (3 lookups): $0.01\n';
   text += aiText ? '2. Cencori AI summary: $0.01\nTotal: $0.02' : '2. ' + aiNote + '\nTotal: $0.01';
-  text += '\n(USAT via buy, capped at $0.01 per call)';
+  text += '\n(USDC via buy, capped at $0.01 per call)';
   if (aiText) cache.set(key, { at: Date.now(), text });
   return ctx.reply(text);
 }
