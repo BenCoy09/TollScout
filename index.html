@@ -6,23 +6,74 @@
 <title>Welcome to TollScout</title>
 <meta name="description" content="Send an address. Get a report, and the receipt for every cent it cost.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
-<style>html{scroll-behavior:smooth}body{margin:0;background:#1E002B}a{color:inherit}a:hover{opacity:.85}a:focus-visible{outline:3px solid #fff;outline-offset:3px}</style>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#1E002B}
+a{color:inherit}
+a:hover{opacity:.85}
+a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+/* Logo assembly: pieces fly in from different directions and lock together,
+   then the check draws and the coin pulses once. */
+.p{opacity:0;transform-box:fill-box;transform-origin:center;
+   animation:form 1s cubic-bezier(.2,.9,.25,1.04) forwards;animation-delay:var(--d,0s)}
+@keyframes form{
+  0%{opacity:0;transform:translate(var(--x,0),var(--y,0)) rotate(var(--r,0deg)) scale(.5)}
+  55%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+.tick{stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+      animation:draw .55s ease-out 2.05s forwards}
+@keyframes draw{0%{opacity:1;stroke-dashoffset:1}100%{opacity:1;stroke-dashoffset:0}}
+.coin{transform-box:fill-box;transform-origin:center;animation:pulse .7s ease-out 2.55s both}
+@keyframes pulse{0%{transform:scale(1)}40%{transform:scale(1.09)}100%{transform:scale(1)}}
+.ring1,.ring2{animation:ringin 1.2s ease-out both}
+.ring2{animation-delay:.25s}
+@keyframes ringin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.glow{position:absolute;inset:40px;border-radius:50%;
+      background:radial-gradient(circle,rgba(252,255,82,.20),rgba(252,255,82,0) 70%);
+      opacity:0;animation:glow 1.4s ease-out 2.4s forwards}
+@keyframes glow{to{opacity:1}}
+.fade{opacity:0;transform:translateY(8px);animation:up .7s ease-out forwards}
+@keyframes up{to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .p,.tick,.coin,.ring1,.ring2,.glow,.fade{animation:none;opacity:1;transform:none}
+  .tick{stroke-dashoffset:0}
+}
+</style>
 </head>
 <body>
 <div style="width:100%;max-width:430px;margin:0 auto;min-height:100vh;box-sizing:border-box;background:#1E002B;color:#F6F1FA;font-family:Inter,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:88px 32px 48px;text-align:center">
+
 <div style="position:relative;width:240px;height:240px">
-<div style="position:absolute;inset:0;border:1px solid rgba(252,255,82,.24);border-radius:50%"></div>
-<div style="position:absolute;inset:28px;border:1px solid rgba(252,255,82,.12);border-radius:50%"></div>
-<svg viewBox="80 140 340 290" width="150" height="128" style="position:absolute;left:45px;top:56px" role="img" aria-label="TollScout logo"><rect x="88" y="392" width="84" height="18" rx="9" fill="#FCFF52"/><rect x="108" y="268" width="44" height="130" rx="8" fill="#FCFF52"/><g transform="rotate(-20 130 270)"><rect x="130" y="256" width="290" height="28" rx="6" fill="#FCFF52"/><rect x="178" y="256" width="28" height="28" fill="#1E002B"/><rect x="234" y="256" width="28" height="28" fill="#1E002B"/><rect x="290" y="256" width="28" height="28" fill="#1E002B"/><rect x="346" y="256" width="28" height="28" fill="#1E002B"/></g><circle cx="130" cy="270" r="18" fill="#7A3FB0" stroke="#FCFF52" stroke-width="6"/><circle cx="335" cy="345" r="72" fill="#FCFF52"/><circle cx="335" cy="345" r="54" fill="none" stroke="#1E002B" stroke-width="8"/><path d="M310 345L330 366L364 322" fill="none" stroke="#1E002B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div class="glow"></div>
+<div class="ring1" style="position:absolute;inset:0;border:1px solid rgba(252,255,82,.24);border-radius:50%"></div>
+<div class="ring2" style="position:absolute;inset:28px;border:1px solid rgba(252,255,82,.12);border-radius:50%"></div>
+<svg viewBox="80 140 340 290" width="150" height="128" style="position:absolute;left:45px;top:56px;overflow:visible" role="img" aria-label="TollScout logo">
+  <g class="p" style="--x:-90px;--y:90px;--r:-40deg;--d:.15s"><rect x="88" y="392" width="84" height="18" rx="9" fill="#FCFF52"/></g>
+  <g class="p" style="--x:-70px;--y:-120px;--r:30deg;--d:.35s"><rect x="108" y="268" width="44" height="130" rx="8" fill="#FCFF52"/></g>
+  <g class="p" style="--x:200px;--y:-110px;--r:25deg;--d:.6s">
+    <g transform="rotate(-20 130 270)"><rect x="130" y="256" width="290" height="28" rx="6" fill="#FCFF52"/><rect x="178" y="256" width="28" height="28" fill="#1E002B"/><rect x="234" y="256" width="28" height="28" fill="#1E002B"/><rect x="290" y="256" width="28" height="28" fill="#1E002B"/><rect x="346" y="256" width="28" height="28" fill="#1E002B"/></g>
+  </g>
+  <g class="p" style="--x:-120px;--y:-30px;--r:180deg;--d:.95s"><circle cx="130" cy="270" r="18" fill="#7A3FB0" stroke="#FCFF52" stroke-width="6"/></g>
+  <g class="p coinwrap" style="--x:140px;--y:170px;--r:-120deg;--d:1.2s">
+    <g class="coin"><circle cx="335" cy="345" r="72" fill="#FCFF52"/><circle cx="335" cy="345" r="54" fill="none" stroke="#1E002B" stroke-width="8"/></g>
+  </g>
+  <path class="tick" pathLength="1" d="M310 345L330 366L364 322" fill="none" stroke="#1E002B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 </div>
+
 <div>
-<h1 style="margin:0;font:700 42px/1.02 'Space Grotesk',sans-serif;letter-spacing:-0.03em">Welcome to<br/><span style="color:#FCFF52">TollScout</span></h1>
-<p style="margin:20px 0 0;font-size:17px;line-height:1.5;color:#B9A7C9">Send an address. Get a report, and the receipt for every cent it cost.</p>
+<h1 class="fade" style="margin:0;font:700 42px/1.02 'Space Grotesk',sans-serif;letter-spacing:-0.03em;animation-delay:2.2s">Welcome to<br/><span style="color:#FCFF52">TollScout</span></h1>
+<p class="fade" style="margin:20px 0 0;font-size:17px;line-height:1.5;color:#B9A7C9;animation-delay:2.5s">Send an address. Get a report, and the receipt for every cent it cost.</p>
 </div>
-<div style="width:100%">
+
+<div class="fade" style="width:100%;animation-delay:2.8s">
 <a href="/app.html" style="display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:999px;background:#FCFF52;color:#1E002B;font:700 17px 'Space Grotesk',sans-serif;text-decoration:none">Start checking</a>
 <p style="margin:16px 0 0;font:400 12px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#B9A7C9">Paid per call · capped at $0.01</p>
 </div>
+
 </div>
 </body>
 </html>
