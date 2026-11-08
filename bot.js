@@ -85,5 +85,6 @@ bot.on('text', (ctx) => {
   return check(ctx, q);
 });
 bot.catch((err) => console.error('Bot error:', err.message));
-bot.launch();
+if (process.env.SITE_ONLY !== '1') bot.launch();
 console.log('Bot running');
+require('./server');
