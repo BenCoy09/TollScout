@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./server'); // start the website first so Render always sees an open port
 const { Telegraf, Markup } = require('telegraf');
 const { paidRpc, paidSummary } = require('./buy');
 
@@ -85,6 +86,5 @@ bot.on('text', (ctx) => {
   return check(ctx, q);
 });
 bot.catch((err) => console.error('Bot error:', err.message));
-if (process.env.SITE_ONLY !== '1') bot.launch();
+if (process.env.SITE_ONLY !== '1') bot.launch().catch((e) => console.error('Bot launch failed:', e.message));
 console.log('Bot running');
-require('./server');
